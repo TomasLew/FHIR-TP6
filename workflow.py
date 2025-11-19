@@ -1,5 +1,5 @@
 from patient import create_patient_resource
-from base import send_resource_to_hapi_fhir, get_resource_from_hapi_fhir
+from base import send_resource_to_hapi_fhir, get_resource_from_hapi_fhir, get_patient_with_identifier
 
 if __name__ == "__main__":
     # Parámetros del paciente (se puede dejar algunos vacíos)
@@ -8,7 +8,7 @@ if __name__ == "__main__":
     birth_date = "1990-01-01"
     gender = "male"
     phone = None 
-    dni = "123456789"
+    dni = "24068762"
 
     # Crear y enviar el recurso de paciente
     patient = create_patient_resource(family_name, given_name, birth_date, gender, phone, dni)
@@ -18,3 +18,7 @@ if __name__ == "__main__":
     # Ver el recurso de paciente creado
     if patient_id:
         get_resource_from_hapi_fhir(patient_id,'Patient')
+
+    patients = get_patient_with_identifier(dni)
+
+    print(patients)

@@ -25,7 +25,7 @@ def create_patient_resource(family_name=None, given_name=None, birth_date=None, 
     
     # Agregar un numero de documento si está disponible
     if dni:
-        patient.identifier = [{'value': dni}]
+        patient.identifier = [{"value": dni}]
 
     # Agregar información de contacto si está disponible
     if phone:

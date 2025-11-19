@@ -32,3 +32,20 @@ def get_resource_from_hapi_fhir(resource_id, resource_type):
         print(f"Error al obtener el recurso: {response.status_code}")
         print(response.json())
 
+def get_patient_with_identifier(identifier_value):
+    url = f"http://hapi.fhir.org/baseR4/Patient/_search?identifier={identifier_value}"
+    response = requests.get(url, headers={"Accept": "application/fhir+json"})
+
+    if response.status_code == 200:
+        bundle = response.json()
+        if 'entry' in bundle:
+            patients = [entry['resource'] for entry in bundle['entry']]
+            print(f"Amount of patients found: {len(patients)}")
+            return patients
+        else:
+            print("No se encontraron pacientes con el identificador proporcionado.")
+            return []
+    else:
+        print(f"Error al buscar el paciente: {response.status_code}")
+        print(response.json())
+        return []
